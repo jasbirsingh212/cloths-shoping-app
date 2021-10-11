@@ -1,11 +1,11 @@
 import React from "react";
 import { Card } from "antd";
-import { shopItems } from "../utils/constant";
 
-const homePageCard = () => {
+const homePageCard = (props) => {
+  const { data } = props;
   return (
     <>
-      {shopItems.map((item) => {
+      {data.map((item) => {
         const { title } = item;
 
         return (
