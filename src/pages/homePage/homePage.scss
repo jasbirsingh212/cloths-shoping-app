@@ -1,0 +1,41 @@
+.container{
+    margin-left: 60px;
+}
+
+.items-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    gap : 30px;
+
+    
+    .item-container-small{
+        width: 30%;
+        height: 260px;
+    }
+    
+    .item-container-large{
+        width: 46%;
+        height: 400px;
+    }
+    
+    .inner-card{
+        width: 110%;
+    }
+
+    
+    .center-inner-card{
+       display: flex;
+       justify-content: center;
+       align-items: center;
+    }
+    .background-image{
+        background-position: center;
+        background-size: cover;
+    }
+   
+}
+
+.ant-card-bordered {
+    border: 2px solid #f0f0f0 !important;
+}

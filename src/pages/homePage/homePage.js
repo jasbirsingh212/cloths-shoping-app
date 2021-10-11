@@ -1,6 +1,7 @@
 import React from "react";
 import HomePageCard from "../../components/homePage-Card";
 import { shopItems } from "../../utils/constant";
+import './homePage.scss';
 
 const HomePage = () => {
   return (
