@@ -2,6 +2,7 @@ import React from "react";
 import { Card } from "antd";
 import { shopNowStyle } from "../../utils/constant";
 import "./item.scss";
+import { Link } from "react-router-dom";
 
 const homePageCard = (props) => {
   const { data } = props;
@@ -39,7 +40,7 @@ const ImageItem = ({title, imageUrl}) => {
               bodyStyle={shopNowStyle}
             >
               <p>
-                <a href={`/${title.toLowerCase()}`}>Shop Now</a>
+                <Link to={`/${title.toLowerCase()}`}>Shop Now</Link>
               </p>
             </Card>
         </>
