@@ -1,14 +1,11 @@
 import React from "react";
-import HomePageCard from "../../components/homePage-Card";
-import { shopItems } from "../../utils/constant";
+import MenuItems from "../../components/menu-items/items-menu";
 import './homePage.scss';
 
 const HomePage = () => {
   return (
     <div className="container">
-      <div className="items-container">
-        <HomePageCard data={shopItems} />
-      </div>
+      <MenuItems />
     </div>
   );
 };

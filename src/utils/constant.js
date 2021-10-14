@@ -34,4 +34,10 @@ export const shopItems = [
         imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
     },
 
-]
+];
+
+// shopNowStyle for show Now text area
+
+export const shopNowStyle = {
+    paddingTop: 10,
+};
