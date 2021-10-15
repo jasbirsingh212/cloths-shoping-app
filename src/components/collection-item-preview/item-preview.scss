@@ -1,0 +1,23 @@
+.preview-card{
+    
+}
+
+.image{
+    height: 330px !important;
+}
+
+.ant-card-meta-detail{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 15px 8px 8px 8px;
+
+    .ant-card-meta-title{
+        font-weight: 700;
+    }
+
+    .ant-card-meta-description{
+        font-size: 16px !important;
+        font-weight: 500;
+    }
+}
