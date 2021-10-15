@@ -290,4 +290,23 @@ export const collectionItem = [
         }
       ]
     }
+  ];
+
+
+  // Navigation items
+
+  export const navItem = [
+
+    {
+      linkUrl : 'Shop'
+    },
+
+    {
+      linkUrl : 'Contact'
+    },
+
+    {
+      linkUrl : 'Sign-in'
+    },
+
   ]
