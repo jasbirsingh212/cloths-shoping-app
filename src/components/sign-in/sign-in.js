@@ -62,7 +62,6 @@ const SignIn = () => {
           </Button>
           <Button
             type="primary"
-            htmlType="submit"
             className="login-form-button google-btn"
             size='large'
             shape='round'
