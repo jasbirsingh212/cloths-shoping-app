@@ -5,6 +5,7 @@ import {
   AiOutlineLock as LockOutlined,
 } from "react-icons/ai";
 import './sign-in.scss';
+import  { SignInWithGoogle } from '../firbase/firebase-auth';
 
 const SignIn = () => {
   const onFinish = (values) => {
@@ -66,6 +67,7 @@ const SignIn = () => {
             size='large'
             shape='round'
             danger
+            onClick={SignInWithGoogle}
           >
             Sign in with Google
           </Button>
