@@ -1,6 +1,7 @@
 import './App.css';
 import 'antd/dist/antd.css';
 import { Switch, Route } from 'react-router-dom';
+import { Component } from 'react';
 
 //Pages
 import HomePage from './pages/homePage/homePage';
@@ -9,18 +10,44 @@ import Authorization from './pages/Authorization/authorization';
 
 // components
 import Header from './components/header/header';
+import { auth } from './components/firbase/firebase-auth';
 
-function App() {
-  return (
-    <div className="App">
-      <Header />
-      <Switch >
-        <Route exact path='/' component={HomePage} />
-        <Route exact path='/shop' component={ShopPage} />
-        <Route exact path='/sign-in' component={Authorization} />
-      </Switch>
-    </div>
-  );
+class App extends Component {
+
+  constructor(){
+    super();
+
+    this.state = {
+      currentUser :  null
+    }
+  }
+
+  unsubscribe = null;
+
+  componentDidMount  () {
+    this.unsubscribe = auth.onAuthStateChanged((user) => {
+      this.setState({currentUser: user})
+    })
+  }
+
+  componentWillUnmount(){
+    this.unsubscribe()
+  }
+
+  render() { 
+    const { currentUser } = this.state;
+    return (
+      <div className="App">
+        <Header user={currentUser} />
+        <Switch >
+          <Route exact path='/' component={HomePage} />
+          <Route exact path='/shop' component={ShopPage} />
+          <Route exact path='/sign-in' component={Authorization} />
+        </Switch>
+      </div>
+    );
+  }
 }
+
 
 export default App;

@@ -3,8 +3,14 @@ import { Link } from "react-router-dom";
 import { FaCrown } from "react-icons/fa";
 import { navItem } from "../../utils/constant";
 import "./header.scss";
+import { signOutCustom } from "../firbase/firebase-auth";
 
-const Header = () => {
+const Header = ({ user }) => {
+
+  const handleSignOut = () => {
+    signOutCustom();
+  }
+
   return (
     <div className="header">
       <Link to="/" className="header-icon">
@@ -22,6 +28,16 @@ const Header = () => {
             </Link>
           );
         })}
+        {
+          user ? ( <div onClick={handleSignOut} className='navigation-link' >Sign-out</div> ) :
+          <Link
+          key='2'
+          to='/sign-in'
+          className="navigation-link"
+          >
+              Sign-in
+            </Link>
+        }
       </div>
     </div>
   );

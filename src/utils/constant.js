@@ -305,8 +305,5 @@ export const collectionItem = [
       linkUrl : 'Contact'
     },
 
-    {
-      linkUrl : 'Sign-in'
-    },
 
   ]
