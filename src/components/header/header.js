@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaCrown } from "react-icons/fa";
 import { navItem } from "../../utils/constant";
-import './header.scss';
+import "./header.scss";
 
 const Header = () => {
   return (
@@ -13,7 +13,11 @@ const Header = () => {
       <div className="navigation-container">
         {navItem.map(({ linkUrl }, idx) => {
           return (
-            <Link key={idx} to={`/${linkUrl.toLowerCase()}`} className="navigation-link">
+            <Link
+              key={idx}
+              to={`/${linkUrl.toLowerCase()}`}
+              className="navigation-link"
+            >
               {linkUrl}
             </Link>
           );
