@@ -4,11 +4,23 @@ import {
   AiOutlineUser as UserOutlined,
   AiOutlineLock as LockOutlined,
 } from "react-icons/ai";
+import {customCreateUser} from '../firbase/firebase-auth';
 import "../sign-in/sign-in.scss";
 
 const SignUp = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const onFinish = async (values) => {
+    const { displayName, email, password, confirm} = values;
+
+   try {
+     
+     if(password === confirm){
+      await customCreateUser(email, password, displayName)
+     }
+
+   } catch (error) {
+     console.log(error)
+   }
+
   };
   return (
     <section className="sign-up-container">
@@ -16,7 +28,7 @@ const SignUp = () => {
       <p className="description">Sign Up with your Username and Password</p>
       <Form name="normal_sign" className="login-form" onFinish={onFinish}>
         <Form.Item
-          name="name"
+          name="displayName"
           rules={[
             {
               required: true,
@@ -30,11 +42,11 @@ const SignUp = () => {
           />
         </Form.Item>
         <Form.Item
-          name="username"
+          name="email"
           rules={[
             {
               required: true,
-              message: "Please input your Username!",
+              message: "Please input your Username/Email!",
             },
           ]}
         >

@@ -10,7 +10,7 @@ import Authorization from './pages/Authorization/authorization';
 
 // components
 import Header from './components/header/header';
-import { auth } from './components/firbase/firebase-auth';
+import { auth, customzedProfileData } from './components/firbase/firebase-auth';
 
 class App extends Component {
 
@@ -25,8 +25,21 @@ class App extends Component {
   unsubscribe = null;
 
   componentDidMount  () {
-    this.unsubscribe = auth.onAuthStateChanged((user) => {
-      this.setState({currentUser: user})
+    this.unsubscribe = auth.onAuthStateChanged(async(user) => {
+      if(user){
+
+        const { userSnap} = await customzedProfileData(user);
+        await this.setState({
+          currentUser:{
+            id: userSnap.id,
+            ...userSnap.data()
+          }
+        
+        }, () => console.log(this.state))
+       
+      }
+      else this.setState({currentUser : user})
+
     })
   }
 

@@ -5,8 +5,9 @@ import {
   GoogleAuthProvider,
   signInWithRedirect,
   signOut,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore,  setDoc, getDoc, doc } from "firebase/firestore";
 
 const config = {
   apiKey: "AIzaSyAIirN1C1xBuh9S0K24aUaARPnVqeor_84",
@@ -23,6 +24,41 @@ export const auth = getAuth();
 export const fireStore = getFirestore();
 export const signOutCustom = () => signOut(auth);
 //console.log(fireStore);
+export const customzedProfileData =  async( userAuth, additionalData) =>  {
+  if(!userAuth) return null;
+
+  const { uid, displayName, email } = userAuth;
+  const userRef = doc(fireStore, "users", uid);
+  const userSnap = await getDoc(userRef);
+
+  if(!userSnap.exists()){
+    try {
+      const createdAt = new Date();
+       await setDoc(userRef, {
+            displayName,
+            email,
+            createdAt,
+            ...additionalData
+       })
+      
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  return {userRef, userSnap};
+}
+
+export const customCreateUser = async(email, password, displayName) =>{
+
+    const {user} = await createUserWithEmailAndPassword(auth, email, password);
+
+    const {userRef, userSnap} =   await customzedProfileData(user, {displayName})
+
+    return {userRef, userSnap, user}
+ 
+}  
+
 const provider = new GoogleAuthProvider();
 
 export const SignInWithGoogle = () => {
