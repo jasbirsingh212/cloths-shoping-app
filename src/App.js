@@ -29,13 +29,12 @@ class App extends Component {
       if(user){
 
         const { userSnap} = await customzedProfileData(user);
-        await this.setState({
+        this.setState({
           currentUser:{
             id: userSnap.id,
-            ...userSnap.data()
+            ...await userSnap.data()
           }
-        
-        }, () => console.log(this.state))
+        })
        
       }
       else this.setState({currentUser : user})

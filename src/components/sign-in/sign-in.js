@@ -4,23 +4,27 @@ import {
   AiOutlineUser as UserOutlined,
   AiOutlineLock as LockOutlined,
 } from "react-icons/ai";
-import './sign-in.scss';
-import  { SignInWithGoogle } from '../firbase/firebase-auth';
+import "./sign-in.scss";
+import {
+  SignInWithGoogle,
+  SignInEmailPassword,
+} from "../firbase/firebase-auth";
 
 const SignIn = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const onFinish = async (values) => {
+    const { username: email, password } = values;
+    try {
+      await SignInEmailPassword(email, password);
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
     <section className="sign-in-section">
-      <h2 className='heading'>Have an account ! </h2>
-      <p className='description'>Sign In with your Username and Password</p>
-      <Form
-        name="normal_login"
-        className="login-form"
-        onFinish={onFinish}
-      >
+      <h2 className="heading">Have an account ! </h2>
+      <p className="description">Sign In with your Username and Password</p>
+      <Form name="normal_login" className="login-form" onFinish={onFinish}>
         <Form.Item
           name="username"
           rules={[
@@ -51,21 +55,21 @@ const SignIn = () => {
           />
         </Form.Item>
 
-        <Form.Item className='button-container'>
+        <Form.Item className="button-container">
           <Button
             type="primary"
             htmlType="submit"
             className="login-form-button btn-bg-black"
-            size='large'
-            shape='round'
+            size="large"
+            shape="round"
           >
             Sign in
           </Button>
           <Button
             type="primary"
             className="login-form-button google-btn"
-            size='large'
-            shape='round'
+            size="large"
+            shape="round"
             danger
             onClick={SignInWithGoogle}
           >
