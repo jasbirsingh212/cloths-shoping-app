@@ -32,7 +32,7 @@ class App extends Component {
         this.setState({
           currentUser:{
             id: userSnap.id,
-            ...await userSnap.data()
+            ...userSnap.data()
           }
         })
        
