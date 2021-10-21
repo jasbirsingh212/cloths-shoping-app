@@ -24,7 +24,6 @@ initializeApp(config);
 export const auth = getAuth();
 export const fireStore = getFirestore();
 export const signOutCustom = () => signOut(auth);
-//console.log(fireStore);
 export const customzedProfileData =  async( userAuth, additionalData) =>  {
   if(!userAuth) return null;
 
@@ -62,7 +61,6 @@ export const customCreateUser = async(email, password, displayName) =>{
 
 export const SignInEmailPassword = async(email, password) => {
   await signInWithEmailAndPassword(auth,email, password);
-  //console.log(user)
 }
 
 const provider = new GoogleAuthProvider();

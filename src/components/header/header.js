@@ -4,9 +4,9 @@ import { FaCrown } from "react-icons/fa";
 import { navItem } from "../../utils/constant";
 import "./header.scss";
 import { signOutCustom } from "../firbase/firebase-auth";
+import { connect } from 'react-redux';
 
-const Header = ({ user }) => {
-
+const Header = ({ currentUser }) => {
   const handleSignOut = () => {
     signOutCustom();
   }
@@ -29,7 +29,7 @@ const Header = ({ user }) => {
           );
         })}
         {
-          user ? ( <div onClick={handleSignOut} className='navigation-link' >Sign-out</div> ) :
+          currentUser && currentUser.id ? ( <div onClick={handleSignOut} className='navigation-link' >Sign-out</div> ) :
           <Link
           key='2'
           to='/sign-in'
@@ -43,4 +43,14 @@ const Header = ({ user }) => {
   );
 };
 
-export default Header;
+const mapStateToProps = ({user:{ currentUser } }) =>  {
+
+
+  return {
+   currentUser,
+  }
+
+}
+
+
+export default connect(mapStateToProps)(Header);

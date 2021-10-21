@@ -2,6 +2,7 @@ import './App.css';
 import 'antd/dist/antd.css';
 import { Switch, Route } from 'react-router-dom';
 import { Component } from 'react';
+import { connect } from 'react-redux';
 
 //Pages
 import HomePage from './pages/homePage/homePage';
@@ -12,32 +13,30 @@ import Authorization from './pages/Authorization/authorization';
 import Header from './components/header/header';
 import { auth, customzedProfileData } from './components/firbase/firebase-auth';
 
+//action
+import { add_User } from './redux/user/user-acttion';
+
 class App extends Component {
 
-  constructor(){
-    super();
-
-    this.state = {
-      currentUser :  null
-    }
-  }
 
   unsubscribe = null;
 
   componentDidMount  () {
+    const {addUser} = this.props;
     this.unsubscribe = auth.onAuthStateChanged(async(user) => {
       if(user){
 
         const { userSnap} = await customzedProfileData(user);
-        this.setState({
-          currentUser:{
+        addUser({
             id: userSnap.id,
             ...userSnap.data()
           }
-        })
+        )
        
       }
-      else this.setState({currentUser : user})
+      else {
+        addUser(user)
+      }
 
     })
   }
@@ -47,10 +46,10 @@ class App extends Component {
   }
 
   render() { 
-    const { currentUser } = this.state;
+    
     return (
       <div className="App">
-        <Header user={currentUser} />
+        <Header />
         <Switch >
           <Route exact path='/' component={HomePage} />
           <Route exact path='/shop' component={ShopPage} />
@@ -61,5 +60,17 @@ class App extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
 
-export default App;
+  return {
+
+    addUser: (currentUser) => {
+      dispatch(add_User(currentUser))
+    }
+  }
+
+
+}
+
+export default connect(null, mapDispatchToProps)(App);
+
