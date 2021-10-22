@@ -1,6 +1,6 @@
 import './App.css';
 import 'antd/dist/antd.css';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -46,14 +46,14 @@ class App extends Component {
   }
 
   render() { 
-    
+    const {currentUser} = this.props;
     return (
       <div className="App">
         <Header />
         <Switch >
           <Route exact path='/' component={HomePage} />
           <Route exact path='/shop' component={ShopPage} />
-          <Route exact path='/sign-in' component={Authorization} />
+          <Route exact path='/sign-in'  render={() => currentUser && currentUser.id ? (<Redirect to='/' />) : (<Authorization /> )} />
         </Switch>
       </div>
     );
@@ -72,5 +72,13 @@ const mapDispatchToProps = (dispatch) => {
 
 }
 
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = ({user: {currentUser}}) => {
+
+    return {
+      currentUser
+    }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 

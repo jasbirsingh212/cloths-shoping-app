@@ -23,7 +23,7 @@ const config = {
 initializeApp(config);
 export const auth = getAuth();
 export const fireStore = getFirestore();
-export const signOutCustom = () => signOut(auth);
+export const signOutCustom = async() =>  await signOut(auth);
 export const customzedProfileData =  async( userAuth, additionalData) =>  {
   if(!userAuth) return null;
 

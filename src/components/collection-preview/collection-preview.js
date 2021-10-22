@@ -9,9 +9,9 @@ const ColllectionPreview = ({ title, items }) => {
       <div className="preview-card-container">
         {items
           .filter((item, idx) => idx < 4)
-          .map(({id, ...otherProps}) => (
+          .map((item) => (
             // @ts-ignore
-            <ItemPreview  key={id} {...otherProps}/>
+            <ItemPreview  key={item.id} item={item}/>
           ))}
       </div>
     </div>

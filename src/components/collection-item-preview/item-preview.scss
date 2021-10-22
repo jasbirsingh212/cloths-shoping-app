@@ -1,4 +1,19 @@
 .preview-card{
+    position: relative;
+
+    .btn-add-cart{
+        position: absolute !important;
+        top: 70%;
+        left: 25%;
+        opacity: 0;
+    }
+
+    &:hover{
+        .btn-add-cart {
+
+            opacity: 1;
+        }
+    }
     
 }
 

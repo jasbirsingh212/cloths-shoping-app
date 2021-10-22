@@ -1,14 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { FaCrown } from "react-icons/fa";
 import { navItem } from "../../utils/constant";
 import "./header.scss";
 import { signOutCustom } from "../firbase/firebase-auth";
 import { connect } from 'react-redux';
 
-const Header = ({ currentUser }) => {
-  const handleSignOut = () => {
-    signOutCustom();
+const Header = ({ currentUser, history }) => {
+  
+  const handleSignOut = async() => {
+    await signOutCustom();
+    history.push("/sign-in");
   }
 
   return (
@@ -53,4 +55,4 @@ const mapStateToProps = ({user:{ currentUser } }) =>  {
 }
 
 
-export default connect(mapStateToProps)(Header);
+export default withRouter( connect(mapStateToProps)(Header));
