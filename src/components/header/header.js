@@ -5,6 +5,7 @@ import { navItem } from "../../utils/constant";
 import "./header.scss";
 import { signOutCustom } from "../firbase/firebase-auth";
 import { connect } from 'react-redux';
+import CartIconWithPopUp from '../cart/cart-icon-popup';
 
 const Header = ({ currentUser, history }) => {
   
@@ -40,6 +41,7 @@ const Header = ({ currentUser, history }) => {
               Sign-in
             </Link>
         }
+        <CartIconWithPopUp />
       </div>
     </div>
   );

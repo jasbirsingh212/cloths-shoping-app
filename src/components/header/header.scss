@@ -28,6 +28,11 @@
       .navigation-link {
         font-size: 18px;
         padding: 10px 15px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
       }
     }
   }

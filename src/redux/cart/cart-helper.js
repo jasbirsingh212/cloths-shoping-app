@@ -23,3 +23,30 @@ export const groupItems = ( cartItems, cartItem ) => {
 
 
 } 
+
+
+export const clearFromCart = (cartItems, cartItem) => {
+
+    return cartItems.filter((item) => item.id !== cartItem.id)
+}
+
+export const removeItem = (cartItems, cartItem) => {
+
+    try {
+        const existingCartItem = cartItems.find(
+            Item => Item.id === cartItem.id
+          );
+        
+          if (existingCartItem.quantity === 1) {
+            return cartItems.filter(Item => Item.id !== cartItem.id);
+          }
+        
+          return cartItems.map(Item =>
+            Item.id === cartItem.id
+              ? { ...Item, quantity: Item.quantity - 1 }
+              : Item
+          );
+    } catch (error) {
+        console.log(error)
+    }
+}

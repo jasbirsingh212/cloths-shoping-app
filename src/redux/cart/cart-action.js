@@ -1,4 +1,4 @@
-import { ADD_TO_CART } from "../action"
+import { ADD_TO_CART, CLEAR_FROM_CART, REMOVE_FROM_CART } from "../action"
 
 export const addToCart = (item) => {
 
@@ -7,4 +7,18 @@ export const addToCart = (item) => {
         payload: item
     }
 
+}
+
+export const clearFromCart = (item) => {
+    return {
+        type: CLEAR_FROM_CART,
+        payload: item,
+    }
+}
+
+export const removeFromCart = ( item ) => {
+    return {
+        type: REMOVE_FROM_CART,
+        payload: item
+    }
 }

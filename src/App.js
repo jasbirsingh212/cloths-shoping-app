@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import HomePage from './pages/homePage/homePage';
 import ShopPage from './pages/shop/shop';
 import Authorization from './pages/Authorization/authorization';
+import CartDetail from './pages/cart-detail/cart-detail';
 
 // components
 import Header from './components/header/header';
@@ -54,6 +55,7 @@ class App extends Component {
           <Route exact path='/' component={HomePage} />
           <Route exact path='/shop' component={ShopPage} />
           <Route exact path='/sign-in'  render={() => currentUser && currentUser.id ? (<Redirect to='/' />) : (<Authorization /> )} />
+          <Route exact path='/cart' component={CartDetail} />
         </Switch>
       </div>
     );
