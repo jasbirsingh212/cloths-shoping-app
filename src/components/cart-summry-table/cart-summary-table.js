@@ -35,7 +35,7 @@ const CartSummary = () => {
       render: (item) => <Quantity item={item} quantity={item.quantity} />,
     },
     {
-      title: "Price ( per item )",
+      title: "Price ( per item in $)",
       dataIndex: "price",
       key: "price",
     },
