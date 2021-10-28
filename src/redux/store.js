@@ -8,7 +8,7 @@ const middleWares = [logger];
 
 export const  store = createStore(rootReducer,compose(
     // @ts-ignore
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
      applyMiddleware(
    ...middleWares
 )),);
