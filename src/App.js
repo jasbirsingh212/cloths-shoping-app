@@ -16,6 +16,7 @@ import { auth, customzedProfileData } from './components/firbase/firebase-auth';
 
 //action
 import { add_User } from './redux/user/user-acttion';
+import CollectionPage from './pages/collection/collections-page';
 
 class App extends Component {
 
@@ -56,6 +57,7 @@ class App extends Component {
           <Route exact path='/shop' component={ShopPage} />
           <Route exact path='/sign-in'  render={() => currentUser && currentUser.id ? (<Redirect to='/' />) : (<Authorization /> )} />
           <Route exact path='/cart' component={CartDetail} />
+          <Route exact path='/shop/:category' component={CollectionPage} />
         </Switch>
       </div>
     );

@@ -3,6 +3,7 @@
 
     .preview-card-container{
         display: flex;
+        flex-wrap: wrap;
         gap: 50px;
     }
 }

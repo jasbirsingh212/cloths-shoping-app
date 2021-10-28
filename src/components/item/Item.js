@@ -40,7 +40,7 @@ const ImageItem = ({title, imageUrl}) => {
               bodyStyle={shopNowStyle}
             >
               <p>
-                <Link to={`/${title.toLowerCase()}`}>Shop Now</Link>
+                <Link to={`/shop/${title.toLowerCase()}`}>Shop Now</Link>
               </p>
             </Card>
         </>
