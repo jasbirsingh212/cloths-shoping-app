@@ -10,6 +10,7 @@ import HomePage from "./pages/homePage/homePage";
 import ShopPage from "./pages/shop/shop";
 import Authorization from "./pages/Authorization/authorization";
 import CartDetail from "./pages/cart-detail/cart-detail";
+import CollectionPage from "./pages/collection/collections-page";
 
 // components
 import Header from "./components/header/header";
@@ -22,8 +23,14 @@ import {
 //action
 import { add_User } from "./redux/user/user-acttion";
 import { addCollection } from "./redux/collections/collection-action";
-import CollectionPage from "./pages/collection/collections-page";
 import Loader from "./components/loader/loader";
+import withSpinner from "./components/with-spinner-HOC/with-spinner-HOC";
+
+const HomePageWithSpinner = withSpinner(HomePage);
+const ShopPageWithSpinner = withSpinner(ShopPage);
+const AuthorizationWithSpinner = withSpinner(Authorization);
+const CartDetailWithSpinner = withSpinner(CartDetail)
+const CollectionPageWithSpinner = withSpinner(CollectionPage);
 
 class App extends Component {
   unsubscribe = null;
@@ -56,22 +63,21 @@ class App extends Component {
       <div className="App">
         <Header />
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/shop" component={ShopPage} />
+          <Route exact path="/" component={HomePageWithSpinner} />
+          <Route exact path="/shop" component={ShopPageWithSpinner} />
           <Route
-            exact
             path="/sign-in"
             render={() =>
               currentUser && currentUser.id ? (
                 <Redirect to="/" />
               ) : (
-                <Authorization />
+                <AuthorizationWithSpinner />
               )
             }
           />
-          <Route exact path="/cart" component={CartDetail} />
+          <Route exact path="/cart" component={CartDetailWithSpinner} />
           <Route exact path="/contact" component={Loader} />
-          <Route exact path="/shop/:category" component={CollectionPage} />
+          <Route exact path="/shop/:category" component={CollectionPageWithSpinner} />
         </Switch>
       </div>
     );

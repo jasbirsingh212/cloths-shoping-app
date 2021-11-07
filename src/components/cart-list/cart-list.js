@@ -14,10 +14,10 @@ const CartList = ({ data, setOpenPopUp }) => {
       <List
         itemLayout="horizontal"
         dataSource={data}
-        renderItem={(item) => {
+        renderItem={(item, index) => {
           const { imageUrl, name, quantity, price } = item;
           return (
-            <List.Item>
+            <List.Item key={index}>
               <List.Item.Meta
                 avatar={<Avatar src={imageUrl} />}
                 // eslint-disable-next-line jsx-a11y/anchor-is-valid
