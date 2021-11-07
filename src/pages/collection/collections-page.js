@@ -1,11 +1,14 @@
+// @ts-nocheck
 import React from "react";
 import ColllectionPreview from "../../components/collection-preview/collection-preview";
-import { collectionItem } from "../../utils/constant";
+import { useSelector } from "react-redux";
 
 const CollectionPage = ({ match }) => {
   const {
     params: { category },
   } = match;
+
+  const collectionItem = useSelector((store) => store?.collections?.data)
   const collection = collectionItem.find((item) => item.routeName === category);
 
   return (
