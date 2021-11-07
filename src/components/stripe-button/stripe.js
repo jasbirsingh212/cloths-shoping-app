@@ -1,5 +1,5 @@
 import React from "react";
-import { AiOutlineCrown } from "react-icons/ai";
+//import { AiOutlineCrown } from "react-icons/ai";
 import StripeCheckout from "react-stripe-checkout";
 import "./stripe.scss";
 

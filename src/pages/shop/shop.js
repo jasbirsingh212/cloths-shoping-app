@@ -1,13 +1,16 @@
+// @ts-nocheck
 import React from "react";
 import "./shop.scss";
 import ColllectionPreview from "../../components/collection-preview/collection-preview";
-import { collectionItem } from "../../utils/constant";
+import { useSelector } from "react-redux";
 
 const Shop = () => {
+
+  const collectionItem = useSelector((store) => store?.collections?.data)
   return (
     <div className="container shop-container">
-      {collectionItem.map(({ id, ...otherProps }) => (
-        <ColllectionPreview key={id} {...otherProps} />
+      {collectionItem && collectionItem.map(({ id, ...otherProps }) => (
+        <ColllectionPreview key={id} {...otherProps} limit={4} />
       ))}
     </div>
   );

@@ -8,7 +8,15 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { getFirestore,  setDoc, getDoc, doc } from "firebase/firestore";
+import {
+  getFirestore,
+  setDoc,
+  getDoc,
+  getDocs,
+  doc,
+  collection,
+  writeBatch,
+} from "firebase/firestore";
 
 const config = {
   apiKey: "AIzaSyAIirN1C1xBuh9S0K24aUaARPnVqeor_84",
@@ -23,50 +31,48 @@ const config = {
 initializeApp(config);
 export const auth = getAuth();
 export const fireStore = getFirestore();
-export const signOutCustom = async() =>  await signOut(auth);
-export const customzedProfileData =  async( userAuth, additionalData) =>  {
-  if(!userAuth) return null;
+export const signOutCustom = async () => await signOut(auth);
+export const customzedProfileData = async (userAuth, additionalData) => {
+  if (!userAuth) return null;
 
   const { uid, displayName, email } = userAuth;
   const userRef = doc(fireStore, "users", uid);
   const userSnap = await getDoc(userRef);
 
-  if(!userSnap.exists()){
+  if (!userSnap.exists()) {
     try {
       const createdAt = new Date();
-       await setDoc(userRef, {
-            displayName,
-            email,
-            createdAt,
-            ...additionalData
-       })
-      
+      await setDoc(userRef, {
+        displayName,
+        email,
+        createdAt,
+        ...additionalData,
+      });
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
   }
 
-  return {userRef, userSnap};
-}
+  return { userRef, userSnap };
+};
 
-export const customCreateUser = async(email, password, displayName) =>{
+export const customCreateUser = async (email, password, displayName) => {
+  const { user } = await createUserWithEmailAndPassword(auth, email, password);
 
-    const {user} = await createUserWithEmailAndPassword(auth, email, password);
+  const { userRef, userSnap } = await customzedProfileData(user, {
+    displayName,
+  });
 
-    const {userRef, userSnap} =   await customzedProfileData(user, {displayName})
+  return { userRef, userSnap, user };
+};
 
-    return {userRef, userSnap, user}
- 
-}  
-
-export const SignInEmailPassword = async(email, password) => {
-  await signInWithEmailAndPassword(auth,email, password);
-}
+export const SignInEmailPassword = async (email, password) => {
+  await signInWithEmailAndPassword(auth, email, password);
+};
 
 const provider = new GoogleAuthProvider();
 
 export const SignInWithGoogle = () => {
-
   signInWithPopup(auth, provider)
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
@@ -92,4 +98,25 @@ export const SignInWithGoogle = () => {
 
 export const SignInWithRedirect = () => {
   signInWithRedirect(auth, provider);
+};
+
+export const addCollectionsAndDocuments = async (
+  collectionKey,
+  objectToAdd
+) => {
+  const collectionRef = collection(fireStore, collectionKey);
+
+  const batch = writeBatch(fireStore);
+  objectToAdd.forEach((obj) => {
+    const newDocRef = doc(collectionRef);
+    batch.set(newDocRef, obj);
+  });
+
+  return await batch.commit();
+};
+
+export const getDataFromCollection = async (collectionKey) => {
+  const collectionRef = collection(fireStore, collectionKey);
+  const querySnapshot = await getDocs(collectionRef);
+  return querySnapshot.docs.map(item => item.data() )
 };

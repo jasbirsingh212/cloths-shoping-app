@@ -3,6 +3,7 @@ import cartReducer from './cart/cart-reducer';
 import userReducer from './user/user-reducer';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import collectionReducer from './collections/collection-reducer';
 
 
 const persistConfig = {
@@ -13,7 +14,8 @@ const persistConfig = {
 
 const rootReducer =  combineReducers({
     user: userReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    collections: collectionReducer
 })
 
 // @ts-ignore
