@@ -23,6 +23,7 @@ import {
 import { add_User } from "./redux/user/user-acttion";
 import { addCollection } from "./redux/collections/collection-action";
 import CollectionPage from "./pages/collection/collections-page";
+import Loader from "./components/loader/loader";
 
 class App extends Component {
   unsubscribe = null;
@@ -69,6 +70,7 @@ class App extends Component {
             }
           />
           <Route exact path="/cart" component={CartDetail} />
+          <Route exact path="/contact" component={Loader} />
           <Route exact path="/shop/:category" component={CollectionPage} />
         </Switch>
       </div>
