@@ -7,14 +7,14 @@ import { useSelector } from "react-redux";
 import { selectedCartItemsCount } from "../../redux/cart/cart-selector";
 import withSpinner from '../with-spinner-HOC/with-spinner-HOC';
 import CartList from "../cart-list/cart-list";
-const CartListWithSpinner = withSpinner(CartList);
 
 const CartIconPopup = () => {
-
+  
   const [openPopUp, setOpenPopUp] = useState(false);
   const data = useSelector((store) => store.cart.cartItem);
   const cartCount = useSelector((store) =>  selectedCartItemsCount(store) );
   const text = data?.length ? <span>Your Cart Items</span> : <span>Add Item To Cart</span>;
+  const CartListWithSpinner = withSpinner(CartList);
   const content = (
     <CartListWithSpinner setOpenPopUp={setOpenPopUp} data={data?.length ? data : [] }/>
   );
