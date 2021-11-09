@@ -17,12 +17,12 @@ import Header from "./components/header/header";
 import {
   auth,
   customzedProfileData,
-  /*addCollectionsAndDocuments */ getDataFromCollection,
+  /*addCollectionsAndDocuments */ /*getDataFromCollection,*/
 } from "./components/firbase/firebase-auth";
 
 //action
 import { add_User } from "./redux/user/user-acttion";
-import { addCollection } from "./redux/collections/collection-action";
+import { addCollection, addCollectionAsync } from "./redux/collections/collection-action";
 import Loader from "./components/loader/loader";
 import withSpinner from "./components/with-spinner-HOC/with-spinner-HOC";
 
@@ -36,10 +36,16 @@ class App extends Component {
   unsubscribe = null;
 
   componentDidMount = async () => {
-    const { addUser, addToCollection } = this.props;
+    const { addUser, /*addToCollection*/addToCollectionAsync  } = this.props;
     //addCollectionsAndDocuments('collections', collectionItem);
-    const collection = await getDataFromCollection("collections");
-    addToCollection(collection);
+    // const collection = await getDataFromCollection("collections");
+    // addToCollection(collection);
+    try {
+      await addToCollectionAsync()
+      
+    } catch (error) {
+      console.log(error)
+    }
     this.unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const { userSnap } = await customzedProfileData(user);
@@ -89,9 +95,10 @@ const mapDispatchToProps = (dispatch) => {
     addUser: (currentUser) => {
       dispatch(add_User(currentUser));
     },
-    addToCollection: (collection) => {
-      dispatch(addCollection(collection));
-    },
+    // addToCollection: (collection) => {
+    //   dispatch(addCollection(collection));
+    // },
+    addToCollectionAsync:() =>  dispatch(addCollectionAsync()),
   };
 };
 
