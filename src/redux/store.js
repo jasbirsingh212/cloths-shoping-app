@@ -1,9 +1,11 @@
+// @ts-nocheck
 import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer  from "./root-reducer";
 import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 import { persistStore } from "redux-persist";
 
-const middleWares = []
+const middleWares = [thunk]
 
 if(process.env.NODE_ENV === 'development') {
   middleWares.push(logger)
