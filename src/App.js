@@ -22,7 +22,7 @@ import {
 
 //action
 import { add_User } from "./redux/user/user-acttion";
-import { addCollection, addCollectionAsync } from "./redux/collections/collection-action";
+import { /*addCollection*/ addCollectionAsync } from "./redux/collections/collection-action";
 import Loader from "./components/loader/loader";
 import withSpinner from "./components/with-spinner-HOC/with-spinner-HOC";
 
