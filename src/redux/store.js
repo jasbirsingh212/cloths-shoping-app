@@ -14,7 +14,8 @@ if(process.env.NODE_ENV === 'development') {
 
 export const  store = createStore(rootReducer,compose(
     // @ts-ignore
-    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : noop => noop,
+    // window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : noop => noop,
+    //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
      applyMiddleware(
    ...middleWares,
 )),);
