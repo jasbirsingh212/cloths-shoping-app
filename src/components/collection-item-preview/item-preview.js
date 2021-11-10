@@ -1,20 +1,18 @@
 import React from "react";
 import { Button, Card } from "antd";
 import "./item-preview.scss";
-import { connect } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cart/cart-action";
 
 const { Meta } = Card;
 
 const ItemPreview = (props) => {
-
-  const {addToCart} = props;
-  const { imageUrl, price, name } = props.item;
-
+  const { imageUrl, price, name } = props?.item;
+  const dispatch = useDispatch();
   const handleClick = () => {
     const { item } = props;
-    addToCart(item)
-  }
+    dispatch(addToCart(item));
+  };
 
   return (
     <Card
@@ -37,12 +35,4 @@ const ItemPreview = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-
-  return {
-    addToCart: (item) => dispatch(addToCart(item))
-  }
-
-}
-
-export default connect(null, mapDispatchToProps)(ItemPreview);
+export default ItemPreview;

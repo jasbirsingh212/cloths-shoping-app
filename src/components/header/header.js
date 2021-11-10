@@ -1,18 +1,19 @@
+// @ts-nocheck
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { FaCrown } from "react-icons/fa";
 import { navItem } from "../../utils/constant";
 import "./header.scss";
 import { signOutCustom } from "../firbase/firebase-auth";
-import { connect } from 'react-redux';
-import CartIconWithPopUp from '../cart/cart-icon-popup';
+import { useSelector } from "react-redux";
+import CartIconWithPopUp from "../cart/cart-icon-popup";
 
-const Header = ({ currentUser, history }) => {
-  
-  const handleSignOut = async() => {
+const Header = ({ history }) => {
+  const currentUser = useSelector((state) => state?.user?.currentUser);
+  const handleSignOut = async () => {
     await signOutCustom();
     history.push("/sign-in");
-  }
+  };
 
   return (
     <div className="header">
@@ -31,30 +32,19 @@ const Header = ({ currentUser, history }) => {
             </Link>
           );
         })}
-        {
-          currentUser && currentUser.id ? ( <div onClick={handleSignOut} className='navigation-link' >Sign-out</div> ) :
-          <Link
-          key='2'
-          to='/sign-in'
-          className="navigation-link"
-          >
-              Sign-in
-            </Link>
-        }
+        {currentUser && currentUser.id ? (
+          <div onClick={handleSignOut} className="navigation-link">
+            Sign-out
+          </div>
+        ) : (
+          <Link key="2" to="/sign-in" className="navigation-link">
+            Sign-in
+          </Link>
+        )}
         <CartIconWithPopUp />
       </div>
     </div>
   );
 };
 
-const mapStateToProps = ({user:{ currentUser } }) =>  {
-
-
-  return {
-   currentUser,
-  }
-
-}
-
-
-export default withRouter( connect(mapStateToProps)(Header));
+export default withRouter(Header);

@@ -69,8 +69,6 @@ class App extends Component {
       <div className="App">
         <Header />
         <Switch>
-          <Route exact path="/" component={HomePageWithSpinner} />
-          <Route exact path="/shop" component={ShopPageWithSpinner} />
           <Route
             path="/sign-in"
             render={() =>
@@ -81,6 +79,8 @@ class App extends Component {
               )
             }
           />
+          <Route exact path="/" component={HomePageWithSpinner} />
+          <Route exact path="/shop" component={ShopPageWithSpinner} />
           <Route exact path="/cart" component={CartDetailWithSpinner} />
           <Route exact path="/contact" component={Loader} />
           <Route exact path="/shop/:category" component={CollectionPageWithSpinner} />
