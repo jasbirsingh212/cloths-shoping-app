@@ -2,14 +2,29 @@ import React from "react";
 //import { AiOutlineCrown } from "react-icons/ai";
 import StripeCheckout from "react-stripe-checkout";
 import "./stripe.scss";
+import axios from "axios";
 
 const StripeButton = ({ price }) => {
   const priceForStripe = price * 100;
   const publishKey =
-    "pk_test_51Jp3vWSFu73WcAVvadbnAXyAbTvrW3r6mFbT6vBhG30Ui1PY7afzlnOJK9DqdxDz6E4jnHhelpX5UZKqrBXaYddK00asrGcjrX";
+    "pk_test_51K4JGbSDAJsDOSumUaSlvePpTTTQ8yDFJsSyMXRFtzkQzxSXHpJOld73A8CP3XiTNpCaEr9ViH0gpvMcfSIsYN3i00ejmXIVsM";
 
   const onToken = (token) => {
-    console.log(token);
+    //console.log(token);
+    axios({
+      url: "payments",
+      method: "post",
+      data: {
+        token,
+        amount: priceForStripe,
+      },
+    }).then((res) => {
+        alert("payement Success");
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log("Something went wrong", JSON.stringify(error));
+      });
   };
 
   return (
