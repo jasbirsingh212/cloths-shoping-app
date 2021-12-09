@@ -34,10 +34,10 @@ console.log(req)
     const body = {
         source: req.body.token.id,
         amount: req.body.amount,
-        currency: 'inr'
+        currency: ['inr', 'usd']
     };
 
-    
+
     // @ts-ignore
     stripe.charges.create(body, (stripeError, stripeRes) => {
 
