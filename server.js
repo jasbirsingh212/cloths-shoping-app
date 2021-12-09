@@ -34,7 +34,7 @@ console.log(req)
     const body = {
         source: req.body.token.id,
         amount: req.body.amount,
-        currency: ['inr', 'usd']
+        currency: 'usd'
     };
 
 
