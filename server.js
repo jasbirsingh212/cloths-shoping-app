@@ -34,7 +34,7 @@ console.log(req)
     const body = {
         source: req.body.token.id,
         amount: req.body.amount,
-        currency: 'usd'
+        currency: process.env.NODE_ENV !== 'production' ? 'inr': 'used'
     };
 
 
