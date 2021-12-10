@@ -34,7 +34,8 @@ console.log(req)
     const body = {
         source: req.body.token.id,
         amount: req.body.amount,
-        currency: 'inr'
+        currency: 'inr',
+        description: 'testing stripe'
     };
 
 
