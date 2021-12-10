@@ -48,7 +48,6 @@ console.log(req)
         else{
             res.status(200).send({success: stripeRes})
         }
-
     })
 
 })
