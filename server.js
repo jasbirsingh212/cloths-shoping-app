@@ -12,7 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
-//console.log(process.env.SECRATE_STRIPE_API_KEY)
+console.log(process.env.SECRATE_STRIPE_API_KEY)
 
 const port = process.env.PORT || 5000;
 
