@@ -1,16 +1,10 @@
 import "./App.css";
 import "antd/dist/antd.css";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { Component } from "react";
+import { Component, lazy, Suspense } from "react";
 import { connect } from "react-redux";
 //import { collectionItem } from './utils/constant';
 
-//Pages
-import HomePage from "./pages/homePage/homePage";
-import ShopPage from "./pages/shop/shop";
-import Authorization from "./pages/Authorization/authorization";
-import CartDetail from "./pages/cart-detail/cart-detail";
-import CollectionPage from "./pages/collection/collections-page";
 
 // components
 import Header from "./components/header/header";
@@ -26,6 +20,12 @@ import { /*addCollection*/ addCollectionAsync } from "./redux/collections/collec
 import Loader from "./components/loader/loader";
 import withSpinner from "./components/with-spinner-HOC/with-spinner-HOC";
 
+//Pages
+const HomePage = lazy(() => import("./pages/homePage/homePage"));
+const ShopPage = lazy(() => import('./pages/shop/shop'))
+const Authorization = lazy(() => import("./pages/Authorization/authorization"))
+const CartDetail = lazy(() => import('./pages/cart-detail/cart-detail'))
+const CollectionPage = lazy(() => import("./pages/collection/collections-page"))
 const HomePageWithSpinner = withSpinner(HomePage);
 const ShopPageWithSpinner = withSpinner(ShopPage);
 const AuthorizationWithSpinner = withSpinner(Authorization);
@@ -69,6 +69,7 @@ class App extends Component {
       <div className="App">
         <Header />
         <Switch>
+        <Suspense fallback={<Loader />}>
           <Route
             path="/sign-in"
             render={() =>
@@ -84,6 +85,7 @@ class App extends Component {
           <Route exact path="/cart" component={CartDetailWithSpinner} />
           <Route exact path="/contact" component={Loader} />
           <Route exact path="/shop/:category" component={CollectionPageWithSpinner} />
+        </Suspense>
         </Switch>
       </div>
     );

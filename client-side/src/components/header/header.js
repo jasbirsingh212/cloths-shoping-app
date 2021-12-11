@@ -17,7 +17,7 @@ const Header = ({ history }) => {
 
   return (
     <div className="header">
-      <Link to="/" className="header-icon">
+      <Link to="/" className="header-icon" aria-label="header-icon">
         <FaCrown size={40} />
       </Link>
       <div className="navigation-container">
