@@ -8,6 +8,7 @@ import { selectedCartItemsCount } from "../../redux/cart/cart-selector";
 import withSpinner from '../with-spinner-HOC/with-spinner-HOC';
 import CartList from "../cart-list/cart-list";
 
+
 const CartIconPopup = () => {
   
   const currentUser = useSelector((state) => state?.user?.currentUser)
