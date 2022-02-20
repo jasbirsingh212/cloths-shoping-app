@@ -12,7 +12,15 @@ const withSpinner = (WrappedComponent) => {
             setTimeout(() => {
                 setLoading(false)  
             }, 2000);
+
+            return () => {
+                setLoading(false)
+              }
+            
         })
+
+        
+        
 
         return  isLoading ? <Loader /> : <WrappedComponent {...otherProps} /> 
     }

@@ -5,28 +5,32 @@ import { Component, lazy, Suspense } from "react";
 import { connect } from "react-redux";
 //import { collectionItem } from './utils/constant';
 
-
 // components
 import Header from "./components/header/header";
 import {
   auth,
-  customzedProfileData,
-  /*addCollectionsAndDocuments */ /*getDataFromCollection,*/
-} from "./components/firbase/firebase-auth";
+  customzedProfileData /*getDataFromCollection,*/,
+} from /*addCollectionsAndDocuments */ "./components/firbase/firebase-auth";
 
 //action
 import { add_User } from "./redux/user/user-acttion";
-import { /*addCollection*/ addCollectionAsync } from "./redux/collections/collection-action";
+import {
+  /*addCollection*/ addCollectionAsync,
+} from "./redux/collections/collection-action";
 import Loader from "./components/loader/loader";
 import withSpinner from "./components/with-spinner-HOC/with-spinner-HOC";
+import ProtectedRoute from "./components/protected-route.js/protected-route";
 
-//Pages
+//Page
 const HomePage = lazy(() => import("./pages/homePage/homePage"));
-const ShopPage = lazy(() => import('./pages/shop/shop'))
-const Authorization = lazy(() => import("./pages/Authorization/authorization"))
-const CartDetail = lazy(() => import('./pages/cart-detail/cart-detail'))
-const CollectionPage = lazy(() => import("./pages/collection/collections-page"))
-const ContactPage = lazy(() => import('./pages/contact/contact'))
+const ShopPage = lazy(() => import("./pages/shop/shop"));
+const Authorization = lazy(() => import("./pages/Authorization/authorization"));
+const CartDetail = lazy(() => import("./pages/cart-detail/cart-detail"));
+const CollectionPage = lazy(() =>
+  import("./pages/collection/collections-page")
+);
+const ContactPage = lazy(() => import("./pages/contact/contact"));
+
 const HomePageWithSpinner = withSpinner(HomePage);
 const ShopPageWithSpinner = withSpinner(ShopPage);
 const AuthorizationWithSpinner = withSpinner(Authorization);
@@ -38,15 +42,14 @@ class App extends Component {
   unsubscribe = null;
 
   componentDidMount = async () => {
-    const { addUser, /*addToCollection*/addToCollectionAsync  } = this.props;
+    const { addUser, /*addToCollection*/ addToCollectionAsync } = this.props;
     //addCollectionsAndDocuments('collections', collectionItem);
     // const collection = await getDataFromCollection("collections");
     // addToCollection(collection);
     try {
-      await addToCollectionAsync()
-      
+      await addToCollectionAsync();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
     this.unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -71,25 +74,28 @@ class App extends Component {
       <div className="App">
         <Header />
         <Switch>
-        <Suspense fallback={<Loader />}>
-          <Route
-            exact
-            path="/sign-in"
-            render={() =>
-              currentUser && currentUser.id ? (
-                <Redirect to="/" />
-              ) : (
-                <AuthorizationWithSpinner />
-              )
-            }
-          />
-          <Route exact path="/" component={HomePageWithSpinner} />
-          <Route exact path="/shop" component={ShopPageWithSpinner} />
-          <Route exact path="/cart" component={CartDetailWithSpinner} />
-          <Route exact path="/contact" component={Loader} />
-          <Route exact path="/shop/:category" component={CollectionPageWithSpinner} />
-          <Route exact path="/contact" component={ContactPageWithSpinner} />
-        </Suspense>
+          <Suspense fallback={<Loader />}>
+            <ProtectedRoute exact path="/" component={HomePageWithSpinner} />
+            <ProtectedRoute exact path="/shop" component={ShopPageWithSpinner} />
+            <ProtectedRoute exact path="/cart" component={CartDetailWithSpinner} />
+            <Route exact path="/contact" component={ContactPageWithSpinner} />
+            <ProtectedRoute
+              exact
+              path="/shop/:category"
+              component={CollectionPageWithSpinner}
+            />
+            <Route
+              exact
+              path="/sign-in"
+              render={() =>
+                currentUser && currentUser.id ? (
+                  <Redirect to="/" />
+                ) : (
+                  <AuthorizationWithSpinner />
+                )
+              }
+            />
+          </Suspense>
         </Switch>
       </div>
     );
@@ -104,7 +110,7 @@ const mapDispatchToProps = (dispatch) => {
     // addToCollection: (collection) => {
     //   dispatch(addCollection(collection));
     // },
-    addToCollectionAsync:() =>  dispatch(addCollectionAsync()),
+    addToCollectionAsync: () => dispatch(addCollectionAsync()),
   };
 };
 

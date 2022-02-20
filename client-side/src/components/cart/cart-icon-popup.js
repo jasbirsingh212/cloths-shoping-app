@@ -10,13 +10,14 @@ import CartList from "../cart-list/cart-list";
 
 const CartIconPopup = () => {
   
+  const currentUser = useSelector((state) => state?.user?.currentUser)
   const [openPopUp, setOpenPopUp] = useState(false);
   const data = useSelector((store) => store.cart.cartItem);
   const cartCount = useSelector((store) =>  selectedCartItemsCount(store) );
-  const text = data?.length ? <span>Your Cart Items</span> : <span>Add Item To Cart</span>;
+  const text = currentUser && data?.length ? <span>Your Cart Items</span> : <span>Add Item To Cart</span>;
   const CartListWithSpinner = withSpinner(CartList);
   const content = (
-    <CartListWithSpinner setOpenPopUp={setOpenPopUp} data={data?.length ? data : [] }/>
+   currentUser && <CartListWithSpinner setOpenPopUp={setOpenPopUp} data={data?.length ? data : [] }/>
   );
 
   return (
@@ -30,7 +31,7 @@ const CartIconPopup = () => {
       visible={openPopUp}
     >
       <BsCart className='icon' size={30} onClick={() => setOpenPopUp(!openPopUp)} />
-      <span className='cart-count'>{cartCount}</span>
+      <span className='cart-count'>{currentUser ? cartCount : 0}</span>
     </Popover>
   );
 };
