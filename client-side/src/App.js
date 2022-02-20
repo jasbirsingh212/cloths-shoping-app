@@ -26,11 +26,13 @@ const ShopPage = lazy(() => import('./pages/shop/shop'))
 const Authorization = lazy(() => import("./pages/Authorization/authorization"))
 const CartDetail = lazy(() => import('./pages/cart-detail/cart-detail'))
 const CollectionPage = lazy(() => import("./pages/collection/collections-page"))
+const ContactPage = lazy(() => import('./pages/contact/contact'))
 const HomePageWithSpinner = withSpinner(HomePage);
 const ShopPageWithSpinner = withSpinner(ShopPage);
 const AuthorizationWithSpinner = withSpinner(Authorization);
-const CartDetailWithSpinner = withSpinner(CartDetail)
+const CartDetailWithSpinner = withSpinner(CartDetail);
 const CollectionPageWithSpinner = withSpinner(CollectionPage);
+const ContactPageWithSpinner = withSpinner(ContactPage);
 
 class App extends Component {
   unsubscribe = null;
@@ -71,6 +73,7 @@ class App extends Component {
         <Switch>
         <Suspense fallback={<Loader />}>
           <Route
+            exact
             path="/sign-in"
             render={() =>
               currentUser && currentUser.id ? (
@@ -85,6 +88,7 @@ class App extends Component {
           <Route exact path="/cart" component={CartDetailWithSpinner} />
           <Route exact path="/contact" component={Loader} />
           <Route exact path="/shop/:category" component={CollectionPageWithSpinner} />
+          <Route exact path="/contact" component={ContactPageWithSpinner} />
         </Suspense>
         </Switch>
       </div>
