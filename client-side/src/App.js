@@ -3,19 +3,18 @@ import "antd/dist/antd.css";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Component, lazy, Suspense } from "react";
 import { connect } from "react-redux";
-//import { collectionItem } from './utils/constant';
 
 // components
 import Header from "./components/header/header";
 import {
   auth,
-  customzedProfileData /*getDataFromCollection,*/,
-} from /*addCollectionsAndDocuments */ "./components/firbase/firebase-auth";
+  customzedProfileData ,
+} from "./components/firbase/firebase-auth";
 
 //action
 import { add_User } from "./redux/user/user-acttion";
 import {
-  /*addCollection*/ addCollectionAsync,
+  addCollectionAsync,
 } from "./redux/collections/collection-action";
 import Loader from "./components/loader/loader";
 import withSpinner from "./components/with-spinner-HOC/with-spinner-HOC";
@@ -42,10 +41,7 @@ class App extends Component {
   unsubscribe = null;
 
   componentDidMount = async () => {
-    const { addUser, /*addToCollection*/ addToCollectionAsync } = this.props;
-    //addCollectionsAndDocuments('collections', collectionItem);
-    // const collection = await getDataFromCollection("collections");
-    // addToCollection(collection);
+    const { addUser,  addToCollectionAsync } = this.props;
     try {
       await addToCollectionAsync();
     } catch (error) {
@@ -107,9 +103,6 @@ const mapDispatchToProps = (dispatch) => {
     addUser: (currentUser) => {
       dispatch(add_User(currentUser));
     },
-    // addToCollection: (collection) => {
-    //   dispatch(addCollection(collection));
-    // },
     addToCollectionAsync: () => dispatch(addCollectionAsync()),
   };
 };
