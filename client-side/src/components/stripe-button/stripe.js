@@ -10,7 +10,7 @@ const StripeButton = ({ price }) => {
     "pk_test_51K4JGbSDAJsDOSumUaSlvePpTTTQ8yDFJsSyMXRFtzkQzxSXHpJOld73A8CP3XiTNpCaEr9ViH0gpvMcfSIsYN3i00ejmXIVsM";
 
   const onToken = (token) => {
-    //console.log(token);
+    console.log(token);
     axios({
       url: "payments",
       method: "post",
