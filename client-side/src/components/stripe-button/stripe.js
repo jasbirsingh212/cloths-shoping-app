@@ -5,7 +5,7 @@ import "./stripe.scss";
 import axios from "axios";
 
 const StripeButton = ({ price }) => {
-  const priceForStripe = price * 100;
+  const priceForStripe = price * 70;
   const publishKey =
     "pk_test_51K4JGbSDAJsDOSumUaSlvePpTTTQ8yDFJsSyMXRFtzkQzxSXHpJOld73A8CP3XiTNpCaEr9ViH0gpvMcfSIsYN3i00ejmXIVsM";
 
